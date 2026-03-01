@@ -1,0 +1,220 @@
+.activePlanSummary {
+  background: var(--aged-cream);
+  border: 3px solid var(--brass-accent);
+  border-radius: 4px;
+  padding: var(--space-6);
+  box-shadow: var(--shadow-md);
+  position: relative;
+}
+
+/* Section Header */
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-6);
+  padding-bottom: var(--space-4);
+  border-bottom: 2px solid var(--brass-dark);
+}
+
+.brassRivet {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, var(--brass-light), var(--brass-dark));
+  box-shadow: 
+    inset 0 1px 2px rgba(0, 0, 0, 0.3),
+    0 1px 2px rgba(255, 255, 255, 0.3);
+  position: relative;
+}
+
+.brassRivet::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 6px;
+  height: 1px;
+  background: var(--mahogany-darker);
+  box-shadow: 0 3px 0 var(--mahogany-darker);
+}
+
+.sectionTitle {
+  font-family: var(--font-labels);
+  font-size: var(--text-lg);
+  font-weight: 600;
+  letter-spacing: var(--tracking-wider);
+  color: var(--mahogany-dark);
+  margin: 0;
+}
+
+/* Plan Header */
+.planHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-6);
+  padding: var(--space-4);
+  background: var(--parchment-white);
+  border: 1px solid var(--brass-accent);
+  border-radius: 2px;
+}
+
+.planInfo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.planVersion {
+  font-family: var(--font-labels);
+  font-size: var(--text-xl);
+  font-weight: 700;
+  letter-spacing: var(--tracking-wide);
+  color: var(--railway-blue);
+}
+
+.statusBadge {
+  padding: var(--space-1) var(--space-3);
+  border-radius: 2px;
+  font-family: var(--font-labels);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+}
+
+.statusACTIVE {
+  background: var(--signal-green);
+  color: white;
+}
+
+.statusPENDING {
+  background: var(--signal-amber);
+  color: white;
+}
+
+.statusARCHIVED {
+  background: var(--steel-brushed);
+  color: white;
+}
+
+.activationInfo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+}
+
+.activationLabel {
+  color: var(--sepia-tone);
+  font-weight: 600;
+  letter-spacing: var(--tracking-wide);
+}
+
+.activationDate {
+  color: var(--mahogany-dark);
+  font-weight: 600;
+}
+
+.activationTime {
+  font-family: var(--font-numbers);
+  color: var(--railway-blue);
+  font-weight: 600;
+}
+
+/* Metrics Grid */
+.metricsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4);
+}
+
+.metricCard {
+  background: linear-gradient(135deg, #E8F4F8 0%, #D4E9F2 100%);
+  border: 2px solid var(--railway-blue);
+  border-radius: 4px;
+  padding: var(--space-5);
+  text-align: center;
+  transition: all 300ms var(--timing-precision);
+}
+
+.metricCard:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--brass-accent);
+}
+
+.metricValue {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: var(--space-1);
+  margin-bottom: var(--space-2);
+}
+
+.metricCurrent {
+  font-family: var(--font-numbers);
+  font-size: var(--text-4xl);
+  font-weight: 700;
+  color: var(--railway-blue);
+  line-height: 1;
+}
+
+.metricSeparator {
+  font-family: var(--font-numbers);
+  font-size: var(--text-2xl);
+  color: var(--sepia-tone);
+  font-weight: 400;
+}
+
+.metricTotal {
+  font-family: var(--font-numbers);
+  font-size: var(--text-2xl);
+  font-weight: 600;
+  color: var(--sepia-tone);
+  line-height: 1;
+}
+
+.metricLabel {
+  font-family: var(--font-labels);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: var(--tracking-wider);
+  color: var(--sepia-tone);
+  text-transform: uppercase;
+}
+
+/* Responsive Design */
+@media (max-width: 1366px) {
+  .metricsGrid {
+    gap: var(--space-3);
+  }
+
+  .metricCard {
+    padding: var(--space-4);
+  }
+
+  .metricCurrent {
+    font-size: var(--text-3xl);
+  }
+
+  .metricTotal {
+    font-size: var(--text-xl);
+  }
+}
+
+@media (max-width: 1024px) {
+  .planHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-3);
+  }
+
+  .metricsGrid {
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+  }
+}

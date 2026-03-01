@@ -1,0 +1,69 @@
+/* ═══════════════════════════════════════ */
+/*        DASHBOARD LIVE CLOCK             */
+/* ═══════════════════════════════════════ */
+
+.dashboardLiveClock {
+  position: fixed;
+  top: 70px;
+  right: 220px;
+  
+  background: rgba(62, 39, 35, 0.95);
+  border: 4px solid #B8860B;
+  border-radius: 8px;
+  padding: 12px 20px;
+  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  
+  box-shadow: 
+    0 6px 20px rgba(0,0,0,0.5),
+    inset 0 0 20px rgba(0,0,0,0.3);
+  
+  z-index: 1000;
+  
+  /* Ensure fixed positioning works correctly */
+  transform: translateZ(0);
+  will-change: contents;
+}
+
+.liveTime {
+  font-family: var(--font-numbers);
+  font-size: 28px;
+  font-weight: 700;
+  color: #D4AF37;
+  line-height: 1;
+  
+  text-shadow: 
+    0 0 12px rgba(212, 175, 55, 0.8),
+    2px 2px 4px rgba(0,0,0,0.6);
+}
+
+.liveDate {
+  font-family: var(--font-labels);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--parchment-white);
+}
+
+.liveDay {
+  font-family: var(--font-body);
+  font-size: 9px;
+  color: rgba(244, 241, 222, 0.7);
+}
+
+/* Responsive */
+@media (max-width: 1366px) {
+  .dashboardLiveClock {
+    top: 60px;
+    right: 180px;
+    padding: 10px 16px;
+  }
+
+  .liveTime {
+    font-size: 24px;
+  }
+}

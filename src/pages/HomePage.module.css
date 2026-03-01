@@ -1,0 +1,66 @@
+/* ═══════════════════════════════════════ */
+/*     HOME PAGE - LAYOUT SECTIONS         */
+/* ═══════════════════════════════════════ */
+
+/* Two Column Layout for Fleet & Depot */
+.twoColumnSection {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 24px;
+  align-items: start;
+}
+
+.twoColumnSection > * {
+  height: 100%;
+}
+
+/* Left Column: Fleet + Summary + Reports */
+.leftColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Summary and Reports Grid (2 columns) */
+.summaryReportsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+@media (max-width: 1600px) {
+  .summaryReportsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 1400px) {
+  .twoColumnSection {
+    grid-template-columns: 1fr;
+  }
+  
+  .summaryReportsGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 900px) {
+  .summaryReportsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Bottom Panel - 3 Column Layout */
+.bottomPanel {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px;
+  margin-top: 24px;
+}
+
+@media (max-width: 1200px) {
+  .bottomPanel {
+    grid-template-columns: 1fr;
+  }
+}

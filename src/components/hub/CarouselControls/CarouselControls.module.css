@@ -1,0 +1,161 @@
+.carouselControls {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+  background-color: var(--aged-cream);
+  border: 2px solid var(--brass-accent);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4) var(--space-6);
+  box-shadow: var(--shadow-lg);
+  z-index: var(--z-fixed);
+}
+
+/* Arrow Buttons */
+.arrowButton {
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(
+    135deg,
+    var(--brass-light) 0%,
+    var(--brass-accent) 50%,
+    var(--brass-dark) 100%
+  );
+  border: 2px solid var(--brass-dark);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 200ms var(--timing-mechanical);
+  box-shadow: var(--shadow-md);
+}
+
+.arrowButton:hover {
+  transform: scale(1.1);
+  box-shadow: var(--shadow-lg), 0 0 20px rgba(184, 134, 11, 0.4);
+}
+
+.arrowButton:active {
+  transform: scale(0.95);
+  box-shadow: var(--shadow-sm);
+}
+
+.arrowButton:focus-visible {
+  outline: 3px solid var(--brass-accent);
+  outline-offset: 2px;
+}
+
+.arrowIcon {
+  font-size: var(--text-2xl);
+  color: var(--ink-black);
+  font-weight: 700;
+}
+
+/* Indicator Dots */
+.indicators {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: var(--brass-dark);
+  border: 2px solid var(--brass-accent);
+  cursor: pointer;
+  transition: all 300ms var(--timing-mechanical);
+  opacity: 0.4;
+  padding: 0;
+}
+
+.dot:hover {
+  opacity: 0.7;
+  transform: scale(1.2);
+}
+
+.dot:focus-visible {
+  outline: 2px solid var(--brass-accent);
+  outline-offset: 3px;
+}
+
+.dotActive {
+  width: 16px;
+  height: 16px;
+  background: radial-gradient(circle, var(--brass-light) 0%, var(--brass-accent) 100%);
+  opacity: 1;
+  box-shadow: 0 0 12px rgba(184, 134, 11, 0.6);
+  animation: glowPulse 2s ease-in-out infinite;
+}
+
+/* Section Label */
+.sectionLabel {
+  min-width: 180px;
+  text-align: center;
+  padding: var(--space-2) var(--space-4);
+  background-color: var(--parchment-white);
+  border: 1px solid var(--brass-accent);
+  border-radius: var(--radius-sm);
+}
+
+.labelText {
+  font-family: var(--font-labels);
+  font-size: var(--text-base);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wider);
+  color: var(--brass-accent);
+}
+
+/* Keyboard Hint */
+.keyboardHint {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: var(--space-3);
+  padding: var(--space-2) var(--space-4);
+  background-color: rgba(26, 26, 26, 0.9);
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+}
+
+.hintText {
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  color: var(--aged-cream);
+  letter-spacing: var(--tracking-normal);
+}
+
+/* Animations */
+@keyframes glowPulse {
+  0%,
+  100% {
+    box-shadow: 0 0 12px rgba(184, 134, 11, 0.6);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(184, 134, 11, 0.9);
+  }
+}
+
+/* Responsive */
+@media (max-width: 1366px) {
+  .carouselControls {
+    gap: var(--space-4);
+    padding: var(--space-3) var(--space-5);
+  }
+
+  .arrowButton {
+    width: 40px;
+    height: 40px;
+  }
+
+  .sectionLabel {
+    min-width: 150px;
+  }
+}

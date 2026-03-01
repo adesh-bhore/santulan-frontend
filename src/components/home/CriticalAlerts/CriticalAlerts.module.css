@@ -1,0 +1,235 @@
+/* ═══════════════════════════════════════ */
+/*        CRITICAL ALERTS BANNER           */
+/* ═══════════════════════════════════════ */
+
+.alertsBanner {
+  background: linear-gradient(135deg, #3E2723 0%, #2C1810 100%);
+  border: 4px solid #B8860B;
+  border-radius: 8px;
+  margin-bottom: 24px;
+  
+  box-shadow: 
+    0 0 0 2px #704214,
+    0 8px 20px rgba(0,0,0,0.5),
+    inset 0 -2px 10px rgba(0,0,0,0.3);
+  
+  overflow: hidden;
+}
+
+.alertsHeader {
+  width: 100%;
+  background: transparent;
+  border: none;
+  padding: 16px 24px;
+  
+  font-family: var(--font-heading);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #D4AF37;
+  
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.alertsHeader:hover {
+  background: rgba(184, 134, 11, 0.1);
+}
+
+.headerContent {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.headerIcon {
+  font-size: 20px;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+}
+
+.headerTitle {
+  flex: 1;
+}
+
+.alertCount {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px;
+  height: 28px;
+  padding: 0 8px;
+  
+  background: linear-gradient(135deg, #C0392B 0%, #9B2226 100%);
+  border: 2px solid #704214;
+  border-radius: 14px;
+  
+  font-family: var(--font-numbers);
+  font-size: 13px;
+  font-weight: 700;
+  color: #F4F1DE;
+  
+  box-shadow: 
+    0 2px 6px rgba(0,0,0,0.4),
+    inset 0 1px 2px rgba(255,255,255,0.2);
+}
+
+.expandIcon {
+  font-size: 12px;
+  color: #D4AF37;
+  transition: transform 0.3s ease;
+}
+
+/* Alerts Content */
+.alertsContent {
+  padding: 0 24px 16px 24px;
+  border-top: 2px solid rgba(184, 134, 11, 0.4);
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    max-height: 0;
+  }
+  to {
+    opacity: 1;
+    max-height: 1000px;
+  }
+}
+
+.alertItem {
+  background: rgba(155, 34, 38, 0.15);
+  border-left: 5px solid var(--alert-color, #9B2226);
+  border-radius: 6px;
+  padding: 14px 18px;
+  margin: 10px 0;
+  
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 16px;
+  align-items: center;
+  
+  transition: all 0.3s ease;
+}
+
+.alertItem:hover {
+  background: rgba(155, 34, 38, 0.25);
+  border-left-width: 7px;
+  padding-left: 16px;
+}
+
+.alertItem[data-severity="critical"] {
+  --alert-color: #9B2226;
+  background: rgba(155, 34, 38, 0.2);
+}
+
+.alertItem[data-severity="warning"] {
+  --alert-color: #CA6702;
+  background: rgba(202, 103, 2, 0.15);
+}
+
+.alertItem[data-severity="info"] {
+  --alert-color: #B8860B;
+  background: rgba(184, 134, 11, 0.1);
+}
+
+.alertIcon {
+  font-size: 24px;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+}
+
+.alertContent {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.alertMessage {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--parchment-white);
+  line-height: 1.4;
+}
+
+.alertDetails {
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: rgba(244, 241, 222, 0.8);
+  line-height: 1.5;
+}
+
+.alertActions {
+  display: flex;
+  gap: 8px;
+}
+
+.alertActionBtn {
+  background: linear-gradient(135deg, #B8860B 0%, #8B6914 100%);
+  border: 2px solid #704214;
+  border-radius: 4px;
+  padding: 6px 14px;
+  
+  font-family: var(--font-labels);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #1A1A1A;
+  
+  cursor: pointer;
+  white-space: nowrap;
+  
+  transition: all 0.2s ease;
+  
+  box-shadow: 
+    0 2px 6px rgba(0,0,0,0.4),
+    inset 0 1px 2px rgba(255,255,255,0.3);
+}
+
+.alertActionBtn:hover {
+  background: linear-gradient(135deg, #D4AF37 0%, #B8860B 100%);
+  transform: translateY(-1px);
+  box-shadow: 
+    0 4px 8px rgba(0,0,0,0.5),
+    0 0 12px rgba(212, 175, 55, 0.4);
+}
+
+.alertActionBtn.dismiss {
+  background: rgba(255,255,255,0.1);
+  color: rgba(244, 241, 222, 0.9);
+  border-color: rgba(112, 66, 20, 0.5);
+}
+
+.alertActionBtn.dismiss:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+/* Empty State */
+.alertsEmpty {
+  padding: 24px;
+  text-align: center;
+  
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: rgba(244, 241, 222, 0.7);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .alertItem {
+    grid-template-columns: auto 1fr;
+    gap: 12px;
+  }
+
+  .alertActions {
+    grid-column: 1 / -1;
+    justify-content: flex-end;
+    margin-top: 8px;
+  }
+}

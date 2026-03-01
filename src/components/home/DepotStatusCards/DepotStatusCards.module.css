@@ -1,0 +1,502 @@
+/* ═══════════════════════════════════════ */
+/*     DEPOT-WISE STATUS SECTION           */
+/* ═══════════════════════════════════════ */
+
+.depotsStatusSection {
+  background: linear-gradient(135deg, 
+    rgba(245, 237, 220, 1) 0%, 
+    rgba(235, 220, 195, 1) 100%);
+  border: 6px solid #8B5A13;
+  border-radius: 10px;
+  padding: 28px;
+  margin-bottom: 24px;
+  
+  display: flex;
+  flex-direction: column;
+  
+  box-shadow: 
+    0 0 0 2px #D4AF37,
+    0 10px 30px rgba(0,0,0,0.4),
+    inset 0 2px 4px rgba(255,255,255,0.5);
+}
+
+.sectionTitle {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #8B5A13;
+  text-align: center;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 3px double #D4AF37;
+  text-shadow: 
+    1px 1px 2px rgba(212, 175, 55, 0.3),
+    2px 2px 4px rgba(0,0,0,0.2);
+  position: relative;
+}
+
+.sectionTitle::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -6px;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #D4AF37, transparent);
+  box-shadow: 0 0 8px rgba(212, 175, 55, 0.6);
+}
+
+.depotCard {
+  background: 
+    linear-gradient(135deg, 
+      rgba(255, 250, 240, 0.95) 0%, 
+      rgba(245, 237, 220, 0.95) 100%);
+  border: 4px solid #8B5A13;
+  border-radius: 8px;
+  padding: 0;
+  margin-bottom: 16px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 
+    0 4px 12px rgba(0,0,0,0.2),
+    inset 0 0 0 1px rgba(212, 175, 55, 0.3);
+}
+
+.depotCard:hover {
+  border-color: #D4AF37;
+  transform: translateY(-2px);
+  box-shadow: 
+    0 6px 16px rgba(0,0,0,0.3),
+    0 0 20px rgba(212, 175, 55, 0.4);
+}
+
+.depotCard[data-status="warning"] {
+  border-color: #E67E22;
+}
+
+.depotCard[data-status="critical"] {
+  border-color: #C0392B;
+}
+
+/* Depot Header */
+.depotHeader {
+  background: linear-gradient(135deg, #5D4037 0%, #3E2723 100%);
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 2px solid #D4AF37;
+  box-shadow: inset 0 -2px 4px rgba(0,0,0,0.3);
+}
+
+.depotName {
+  font-family: var(--font-heading);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #D4AF37;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.depotIcon {
+  font-size: 20px;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+}
+
+.depotStatusIndicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-labels);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--parchment-white);
+}
+
+.statusLampIndicator {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid #704214;
+  box-shadow: 
+    inset 0 1px 2px rgba(255,255,255,0.3),
+    0 0 8px var(--lamp-color, #2D6A4F);
+  background: var(--lamp-color, #2D6A4F);
+  animation: status-pulse 2s ease-in-out infinite;
+}
+
+@keyframes status-pulse {
+  0%, 100% { 
+    box-shadow: 
+      inset 0 1px 2px rgba(255,255,255,0.3),
+      0 0 8px var(--lamp-color); 
+  }
+  50% { 
+    box-shadow: 
+      inset 0 1px 2px rgba(255,255,255,0.3),
+      0 0 16px var(--lamp-color); 
+  }
+}
+
+.depotCard[data-status="operational"] .statusLampIndicator {
+  --lamp-color: #27AE60;
+}
+
+.depotCard[data-status="warning"] .statusLampIndicator {
+  --lamp-color: #E67E22;
+}
+
+.depotCard[data-status="critical"] .statusLampIndicator {
+  --lamp-color: #C0392B;
+}
+
+/* Depot Content */
+.depotContent {
+  padding: 18px 20px;
+}
+
+.depotMetricsRow {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--ink-black);
+}
+
+.depotMetric {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.depotMetricLabel {
+  color: var(--sepia-tone);
+}
+
+.depotMetricValue {
+  font-weight: 700;
+  color: var(--railway-blue);
+}
+
+.depotMetricWarning {
+  color: var(--signal-red);
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.depotMetricWarning::after {
+  content: '⚠️';
+  font-size: 14px;
+}
+
+/* Routes Info */
+.depotRoutesInfo {
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--sepia-tone);
+  margin: 12px 0;
+  padding: 10px 14px;
+  background: rgba(184, 134, 11, 0.08);
+  border-left: 3px solid var(--brass-accent);
+  border-radius: 4px;
+}
+
+/* Alert Message */
+.depotAlertMessage {
+  background: rgba(202, 103, 2, 0.1);
+  border-left: 4px solid var(--signal-amber);
+  border-radius: 4px;
+  padding: 10px 14px;
+  margin: 12px 0;
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--ink-black);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.depotAlertMessage.success {
+  background: rgba(45, 106, 79, 0.1);
+  border-left-color: var(--signal-green);
+}
+
+.depotAlertIcon {
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+/* Depot Actions */
+.depotActions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 2px solid rgba(139, 105, 20, 0.2);
+}
+
+.depotActionBtn {
+  background: linear-gradient(135deg, #D4AF37 0%, #B8860B 100%);
+  border: 2px solid #8B5A13;
+  border-radius: 4px;
+  padding: 8px 16px;
+  font-family: var(--font-labels);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #1A1A1A;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 
+    0 2px 6px rgba(0,0,0,0.3),
+    inset 0 1px 2px rgba(255,255,255,0.4);
+}
+
+.depotActionBtn:hover {
+  background: linear-gradient(135deg, #F4D03F 0%, #D4AF37 100%);
+  transform: translateY(-1px);
+  box-shadow: 
+    0 4px 8px rgba(0,0,0,0.4),
+    0 0 16px rgba(244, 208, 63, 0.5);
+}
+
+/* Last Activity */
+.depotLastActivity {
+  font-family: var(--font-body);
+  font-size: 11px;
+  color: var(--steel-brushed);
+  font-style: italic;
+  margin-top: 10px;
+}
+
+
+/* Depot Summary Stats */
+.depotSummary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+  margin: 20px 0;
+  padding: 16px;
+  background: rgba(27, 73, 101, 0.05);
+  border: 3px solid #704214;
+  border-radius: 8px;
+}
+
+.summaryCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 12px;
+  background: rgba(255,255,255,0.6);
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.summaryCard:hover {
+  background: rgba(255,255,255,0.9);
+  transform: translateY(-2px);
+}
+
+.summaryValue {
+  font-family: var(--font-numbers);
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--railway-blue);
+  line-height: 1;
+}
+
+.summaryLabel {
+  font-family: var(--font-labels);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--sepia-tone);
+  text-align: center;
+}
+
+/* Search Bar */
+.searchBar {
+  position: relative;
+  margin: 0 0 20px 0;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 14px 40px 14px 20px;
+  
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--ink-black);
+  
+  background: rgba(255,255,255,0.8);
+  border: 3px solid #704214;
+  border-radius: 8px;
+  
+  transition: all 0.3s ease;
+  
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Depot Cards Grid - 2x2 layout */
+.depotCardsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+@media (max-width: 1200px) {
+  .depotCardsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: #B8860B;
+  background: rgba(255,255,255,1);
+  box-shadow: 
+    inset 0 2px 4px rgba(0,0,0,0.1),
+    0 0 12px rgba(184, 134, 11, 0.3);
+}
+
+.searchInput::placeholder {
+  color: var(--steel-brushed);
+  font-style: italic;
+}
+
+.clearSearch {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  
+  width: 28px;
+  height: 28px;
+  
+  background: rgba(139, 105, 20, 0.2);
+  border: 2px solid #704214;
+  border-radius: 50%;
+  
+  font-size: 14px;
+  color: var(--sepia-tone);
+  
+  cursor: pointer;
+  transition: all 0.2s ease;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.clearSearch:hover {
+  background: rgba(139, 105, 20, 0.4);
+  color: var(--ink-black);
+}
+
+/* Results Info */
+.resultsInfo {
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--sepia-tone);
+  margin: 12px 0;
+  padding: 8px 12px;
+  background: rgba(184, 134, 11, 0.1);
+  border-left: 3px solid var(--brass-accent);
+  border-radius: 4px;
+}
+
+/* Empty State */
+.emptyState {
+  padding: 60px 40px;
+  text-align: center;
+  background: rgba(255,255,255,0.3);
+  border: 3px solid #704214;
+  border-radius: 8px;
+  margin: 20px 0;
+}
+
+.emptyState p:first-child {
+  font-size: 32px;
+  margin-bottom: 12px;
+}
+
+.emptyMessage {
+  font-family: var(--font-body);
+  font-size: 12px !important;
+  font-style: italic;
+  color: var(--steel-brushed) !important;
+}
+
+/* Show More Button */
+.showMoreContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 2px solid rgba(139, 105, 20, 0.3);
+}
+
+.showMoreBtn {
+  background: linear-gradient(135deg, #B8860B 0%, #8B6914 100%);
+  border: 3px solid #704214;
+  border-radius: 6px;
+  padding: 12px 32px;
+  
+  font-family: var(--font-labels);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #1A1A1A;
+  
+  cursor: pointer;
+  transition: all 0.3s ease;
+  
+  box-shadow: 
+    0 4px 8px rgba(0,0,0,0.3),
+    inset 0 1px 2px rgba(255,255,255,0.3);
+}
+
+.showMoreBtn:hover {
+  background: linear-gradient(135deg, #D4AF37 0%, #B8860B 100%);
+  transform: translateY(-2px);
+  box-shadow: 
+    0 6px 12px rgba(0,0,0,0.4),
+    0 0 16px rgba(212, 175, 55, 0.4);
+}
+
+/* Loading and Error States */
+.loadingState,
+.errorState {
+  padding: 40px 20px;
+  text-align: center;
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--sepia-tone);
+  background: rgba(255, 250, 240, 0.5);
+  border: 2px dashed rgba(139, 90, 19, 0.3);
+  border-radius: 6px;
+  margin: 20px 0;
+}
+
+.errorState {
+  color: var(--signal-red);
+  border-color: rgba(192, 57, 43, 0.3);
+}

@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TransitPulse - 3D TSN Graph Visualization</title>
+  <style>
+    /* ═══════════════════════════════════════ */
+    /*     VINTAGE HERITAGE STYLING            */
+    /* ═══════════════════════════════════════ */
+    
+    @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Share+Tech+Mono&family=Oswald:wght@600;700&display=swap');
+    
+    :root {
+      --mahogany-panel: #3E2723;
+      --brass-accent: #B8860B;
+      --parchment-white: #F4F1DE;
+      --railway-blue: #1B4965;
+      --government-seal: #8B4513;
+      --signal-green: #2D6A4F;
+      --signal-amber: #CA6702;
+      --aged-cream: #FAF3E0;
+      
+      --font-body: 'Courier Prime', monospace;
+      --font-numbers: 'Share Tech Mono', monospace;
+      --font-labels: 'Oswald', sans-serif;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: var(--font-body);
+      background: linear-gradient(135deg, #2C1810 0%, #1A0F0A 100%);
+      color: var(--parchment-white);
+      overflow: hidden;
+    }
+    
+    /* Container */
+    #tsn-container {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      background: 
+        radial-gradient(ellipse at center, rgba(27, 73, 101, 0.15) 0%, transparent 70%),
+        linear-gradient(135deg, #1A0F0A 0%, #2C1810 100%);
+    }
+    
+    /* Canvas */
+    #tsn-canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+    
+    /* Vintage Border Frame */
+    .vintage-frame {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      right: 20px;
+      bottom: 20px;
+      border: 4px solid #B8860B;
+      pointer-events: none;
+      z-index: 10;
+      box-shadow: 
+        inset 0 0 30px rgba(184, 134, 11, 0.2),
+        0 0 40px rgba(184, 134, 11, 0.1);
+    }
+    
+    .vintage-frame::before {
+      content: '';
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      right: 8px;
+      bottom: 8px;
+      border: 2px solid rgba(184, 134, 11, 0.5);
+    }
+    
+    /* Corner Ornaments */
+    .corner-ornament {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      border: 3px solid #B8860B;
+      background: radial-gradient(circle, #D4AF37 0%, #8B6914 100%);
+      box-shadow: 
+        0 4px 12px rgba(0,0,0,0.5),
+        inset 0 0 10px rgba(255,255,255,0.2);
+    }
+    
+    .corner-ornament.top-left {
+      top: -3px;
+      left: -3px;
+      border-radius: 0 0 8px 0;
+    }
+    
+    .corner-ornament.top-right {
+      top: -3px;
+      right: -3px;
+      border-radius: 0 0 0 8px;
+    }
+    
+    .corner-ornament.bottom-left {
+      bottom: -3px;
+      left: -3px;
+      border-radius: 0 8px 0 0;
+    }
+    
+    .corner-ornament.bottom-right {
+      bottom: -3px;
+      right: -3px;
+      border-radius: 8px 0 0 0;
+    }
+    
+    /* Info Panel */
+    #info-panel {
+      position: absolute;
+      top: 40px;
+      left: 40px;
+      background: linear-gradient(135deg, rgba(62, 39, 35, 0.95) 0%, rgba(44, 24, 16, 0.95) 100%);
+      border: 4px solid #B8860B;
+      border-radius: 8px;
+      padding: 20px 28px;
+      min-width: 320px;
+      z-index: 20;
+      
+      box-shadow: 
+        0 0 0 2px #704214,
+        0 12px 36px rgba(0,0,0,0.8),
+        inset 0 -4px 16px rgba(0,0,0,0.3);
+    }
+    
+    #info-panel h2 {
+      font-family: var(--font-labels);
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #D4AF37;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid rgba(184, 134, 11, 0.4);
+      
+      text-shadow: 0 0 8px rgba(212, 175, 55, 0.6);
+    }
+    
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 10px 0;
+      font-size: 13px;
+    }
+    
+    .info-label {
+      color: rgba(244, 241, 222, 0.8);
+    }
+    
+    .info-value {
+      font-family: var(--font-numbers);
+      font-size: 18px;
+      font-weight: 700;
+      color: #D4AF37;
+      text-shadow: 0 0 8px rgba(212, 175, 55, 0.4);
+    }
+    
+    .info-value.building {
+      animation: pulse-value 2s ease-in-out infinite;
+    }
+    
+    @keyframes pulse-value {
+      0%, 100% { 
+        color: #D4AF37;
+        text-shadow: 0 0 8px rgba(212, 175, 55, 0.4);
+      }
+      50% { 
+        color: #E6C653;
+        text-shadow: 0 0 16px rgba(230, 198, 83, 0.8);
+      }
+    }
+    
+    /* Progress Bar */
+    .progress-bar {
+      width: 100%;
+      height: 24px;
+      background: rgba(139, 105, 20, 0.3);
+      border: 2px solid #704214;
+      border-radius: 4px;
+      margin: 16px 0 8px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: inset 0 2px 6px rgba(0,0,0,0.4);
+    }
+    
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #B8860B 0%, #D4AF37 50%, #B8860B 100%);
+      width: 0%;
+      transition: width 0.3s ease;
+      box-shadow: inset 0 1px 2px rgba(255,255,255,0.3);
+      background-size: 200% 100%;
+      animation: shimmer 3s linear infinite;
+    }
+    
+    @keyframes shimmer {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+    
+    .progress-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: var(--font-numbers);
+      font-size: 12px;
+      font-weight: 700;
+      color: #1A1A1A;
+      text-shadow: 0 0 4px rgba(255,255,255,0.6);
+    }
+    
+    /* Legend */
+    #legend {
+      position: absolute;
+      top: 40px;
+      right: 40px;
+      background: linear-gradient(135deg, rgba(27, 73, 101, 0.95) 0%, rgba(15, 42, 61, 0.95) 100%);
+      border: 4px solid #B8860B;
+      border-radius: 8px;
+      padding: 20px 24px;
+      z-index: 20;
+      
+      box-shadow: 
+        0 0 0 2px #704214,
+        0 12px 36px rgba(0,0,0,0.8);
+    }
+    
+    #legend h3 {
+      font-family: var(--font-labels);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #D4AF37;
+      margin-bottom: 12px;
+    }
+    
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 8px 0;
+      font-size: 12px;
+    }
+    
+    .legend-color {
+      width: 24px;
+      height: 12px;
+      border-radius: 2px;
+      border: 1px solid rgba(255,255,255,0.3);
+      box-shadow: 0 0 8px var(--glow-color);
+    }
+    
+    .legend-color.trip { 
+      background: #52B788; 
+      --glow-color: rgba(82, 183, 136, 0.6);
+    }
+    .legend-color.wait { 
+      background: #D4AF37; 
+      --glow-color: rgba(212, 175, 55, 0.6);
+    }
+    .legend-color.deadhead { 
+      background: #8ECAE6; 
+      --glow-color: rgba(142, 202, 230, 0.6);
+    }
+    .legend-color.rest { 
+      background: #F2CC8F; 
+      --glow-color: rgba(242, 204, 143, 0.6);
+    }
+    
+    .legend-label {
+      color: rgba(244, 241, 222, 0.9);
+    }
+    
+    /* Status Display */
+    #status-display {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(135deg, rgba(45, 106, 79, 0.95) 0%, rgba(27, 67, 50, 0.95) 100%);
+      border: 4px solid #52B788;
+      border-radius: 8px;
+      padding: 16px 32px;
+      z-index: 20;
+      
+      box-shadow: 
+        0 0 0 2px #704214,
+        0 12px 36px rgba(0,0,0,0.8),
+        0 0 24px rgba(82, 183, 136, 0.3);
+      
+      font-family: var(--font-body);
+      font-size: 14px;
+      color: white;
+      text-align: center;
+      
+      animation: status-glow 3s ease-in-out infinite;
+    }
+    
+    @keyframes status-glow {
+      0%, 100% {
+        box-shadow: 
+          0 0 0 2px #704214,
+          0 12px 36px rgba(0,0,0,0.8),
+          0 0 24px rgba(82, 183, 136, 0.3);
+      }
+      50% {
+        box-shadow: 
+          0 0 0 2px #704214,
+          0 12px 36px rgba(0,0,0,0.8),
+          0 0 36px rgba(82, 183, 136, 0.6);
+      }
+    }
+    
+    #status-display::before {
+      content: '⚙';
+      font-size: 20px;
+      margin-right: 10px;
+      animation: spin 3s linear infinite;
+    }
+    
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    
+    /* Controls */
+    #controls {
+      position: absolute;
+      bottom: 40px;
+      right: 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      z-index: 20;
+    }
+    
+    .control-btn {
+      background: linear-gradient(135deg, #B8860B 0%, #8B6914 100%);
+      border: 3px solid #704214;
+      border-radius: 6px;
+      padding: 12px 20px;
+      
+      font-family: var(--font-labels);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #1A1A1A;
+      
+      cursor: pointer;
+      transition: all 0.3s ease;
+      
+      box-shadow: 
+        0 4px 10px rgba(0,0,0,0.5),
+        inset 0 1px 2px rgba(255,255,255,0.3);
+    }
+    
+    .control-btn:hover {
+      background: linear-gradient(135deg, #D4AF37 0%, #B8860B 100%);
+      transform: translateY(-2px);
+      box-shadow: 
+        0 6px 14px rgba(0,0,0,0.6),
+        0 0 20px rgba(212, 175, 55, 0.4);
+    }
+    
+    .control-btn:active {
+      transform: translateY(0);
+    }
+    
+    .control-btn.pause {
+      background: linear-gradient(135deg, #CA6702 0%, #9B5002 100%);
+      color: white;
+    }
+    
+    .control-btn.reset {
+      background: rgba(155, 34, 38, 0.3);
+      border-color: #9B2226;
+      color: #F4A3A8;
+    }
+  </style>
+</head>
+<body>
+  <div id="tsn-container">
+    <!-- Canvas for 3D rendering -->
+    <canvas id="tsn-canvas"></canvas>
+    
+    <!-- Vintage Frame -->
+    <div class="vintage-frame">
+      <div class="corner-ornament top-left"></div>
+      <div class="corner-ornament top-right"></div>
+      <div class="corner-ornament bottom-left"></div>
+      <div class="corner-ornament bottom-right"></div>
+    </div>
+    
+    <!-- Info Panel -->
+    <div id="info-panel">
+      <h2>⚙ TSN CONSTRUCTION</h2>
+      <div class="info-row">
+        <span class="info-label">Nodes Created:</span>
+        <span class="info-value building" id="node-count">0</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">Edges Generated:</span>
+        <span class="info-value building" id="edge-count">0</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">Completion:</span>
+        <span class="info-value" id="completion">0%</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill"></div>
+        <div class="progress-text" id="progress-text">0%</div>
+      </div>
+      <div class="info-row">
+        <span class="info-label">Current Stage:</span>
+        <span class="info-value" id="current-stage" style="font-size: 11px;">Initializing</span>
+      </div>
+    </div>
+    
+    <!-- Legend -->
+    <div id="legend">
+      <h3>EDGE TYPES</h3>
+      <div class="legend-item">
+        <div class="legend-color trip"></div>
+        <div class="legend-label">Trip (Scheduled Service)</div>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color wait"></div>
+        <div class="legend-label">Wait (At Location)</div>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color deadhead"></div>
+        <div class="legend-label">Deadhead (Empty Move)</div>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color rest"></div>
+        <div class="legend-label">Rest (Driver Break)</div>
+      </div>
+    </div>
+    
+    <!-- Status Display -->
+    <div id="status-display">
+      Building Time-Space Network Graph...
+    </div>
+    
+    <!-- Controls -->
+    <div id="controls">
+      <button class="control-btn" id="start-btn">START BUILD</button>
+      <button class="control-btn pause" id="pause-btn" style="display: none;">PAUSE</button>
+      <button class="control-btn reset" id="reset-btn">RESET</button>
+    </div>
+  </div>
+
+  <!-- Three.js Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  
+  <script>
+    /* ═══════════════════════════════════════ */
+    /*     3D TSN GRAPH VISUALIZATION          */
+    /* ═══════════════════════════════════════ */
+    
+    // Scene setup
+    const canvas = document.getElementById('tsn-canvas');
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x1A0F0A);
+    scene.fog = new THREE.Fog(0x1A0F0A, 50, 200);
+    
+    // Camera
+    const camera = new THREE.PerspectiveCamera(
+      60,
+      window.innerWidth / window.innerHeight,
+      0.1,
+      1000
+    );
+    camera.position.set(0, 30, 80);
+    camera.lookAt(0, 0, 0);
+    
+    // Renderer
+    const renderer = new THREE.WebGLRenderer({ 
+      canvas: canvas,
+      antialias: true,
+      alpha: true
+    });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(window.devicePixelRatio);
+    
+    // Lighting
+    const ambientLight = new THREE.AmbientLight(0xB8860B, 0.3);
+    scene.add(ambientLight);
+    
+    const pointLight1 = new THREE.PointLight(0xD4AF37, 1, 100);
+    pointLight1.position.set(20, 30, 20);
+    scene.add(pointLight1);
+    
+    const pointLight2 = new THREE.PointLight(0x52B788, 0.8, 100);
+    pointLight2.position.set(-20, 20, -20);
+    scene.add(pointLight2);
+    
+    const pointLight3 = new THREE.PointLight(0x8ECAE6, 0.6, 80);
+    pointLight3.position.set(0, -20, 30);
+    scene.add(pointLight3);
+    
+    // Data structures
+    const nodes = [];
+    const edges = [];
+    const nodeObjects = [];
+    const edgeObjects = [];
+    
+    // TSN Parameters (simulating PMPML data)
+    const TSN_CONFIG = {
+      depots: ['Swargate', 'Nigdi', 'Bhosari', 'Katraj'],
+      totalTrips: 450,
+      timeSlots: 288, // 24 hours * 12 (5-min intervals)
+      targetNodes: 5000,
+      targetEdges: 20000
+    };
+    
+    // Materials
+    const nodeMaterial = new THREE.MeshPhongMaterial({
+      color: 0xD4AF37,
+      emissive: 0xB8860B,
+      emissiveIntensity: 0.3,
+      shininess: 100
+    });
+    
+    const edgeMaterials = {
+      trip: new THREE.LineBasicMaterial({ 
+        color: 0x52B788, 
+        transparent: true, 
+        opacity: 0.7,
+        linewidth: 2
+      }),
+      wait: new THREE.LineBasicMaterial({ 
+        color: 0xD4AF37, 
+        transparent: true, 
+        opacity: 0.5,
+        linewidth: 1
+      }),
+      deadhead: new THREE.LineBasicMaterial({ 
+        color: 0x8ECAE6, 
+        transparent: true, 
+        opacity: 0.6,
+        linewidth: 1.5
+      }),
+      rest: new THREE.LineBasicMaterial({ 
+        color: 0xF2CC8F, 
+        transparent: true, 
+        opacity: 0.5,
+        linewidth: 1
+      })
+    };
+    
+    // Animation state
+    let isBuilding = false;
+    let isPaused = false;
+    let buildProgress = 0;
+    let currentStage = 'idle';
+    
+    // Create a node in 3D space
+    function createNode(location, timeSlot, index) {
+      // Convert location (depot/stop) and time to 3D coordinates
+      const locationIndex = TSN_CONFIG.depots.indexOf(location);
+      const depotAngle = (locationIndex / TSN_CONFIG.depots.length) * Math.PI * 2;
+      
+      // Arrange in circular layers by time
+      const radius = 30 + (Math.random() - 0.5) * 10;
+      const height = (timeSlot / TSN_CONFIG.timeSlots) * 60 - 30;
+      
+      const x = Math.cos(depotAngle) * radius;
+      const z = Math.sin(depotAngle) * radius;
+      const y = height;
+      
+      const geometry = new THREE.SphereGeometry(0.3, 8, 8);
+      const mesh = new THREE.Mesh(geometry, nodeMaterial);
+      mesh.position.set(x, y, z);
+      
+      // Add glow effect
+      const glowGeometry = new THREE.SphereGeometry(0.5, 8, 8);
+      const glowMaterial = new THREE.MeshBasicMaterial({
+        color: 0xD4AF37,
+        transparent: true,
+        opacity: 0.3
+      });
+      const glow = new THREE.Mesh(glowGeometry, glowMaterial);
+      mesh.add(glow);
+      
+      scene.add(mesh);
+      nodeObjects.push(mesh);
+      
+      return { x, y, z, location, timeSlot };
+    }
+    
+    // Create an edge between two nodes
+    function createEdge(fromNode, toNode, type) {
+      const points = [
+        new THREE.Vector3(fromNode.x, fromNode.y, fromNode.z),
+        new THREE.Vector3(toNode.x, toNode.y, toNode.z)
+      ];
+      
+      const geometry = new THREE.BufferGeometry().setFromPoints(points);
+      const material = edgeMaterials[type] || edgeMaterials.wait;
+      const line = new THREE.Line(geometry, material);
+      
+      scene.add(line);
+      edgeObjects.push(line);
+      
+      return line;
+    }
+    
+    // Build TSN progressively
+    async function buildTSN() {
+      if (isBuilding) return;
+      
+      isBuilding = true;
+      isPaused = false;
+      buildProgress = 0;
+      
+      document.getElementById('start-btn').style.display = 'none';
+      document.getElementById('pause-btn').style.display = 'block';
+      
+      // Stage 1: Create trip nodes
+      currentStage = 'Creating trip nodes...';
+      updateStatus();
+      
+      for (let i = 0; i < TSN_CONFIG.totalTrips && isBuilding; i++) {
+        if (isPaused) {
+          await waitForResume();
+        }
+        
+        // Create start and end nodes for each trip
+        const depot = TSN_CONFIG.depots[Math.floor(Math.random() * TSN_CONFIG.depots.length)];
+        const timeSlot = Math.floor(Math.random() * TSN_CONFIG.timeSlots);
+        
+        const startNode = createNode(depot, timeSlot, nodes.length);
+        nodes.push(startNode);
+        
+        const endTimeSlot = Math.min(timeSlot + Math.floor(Math.random() * 12) + 6, TSN_CONFIG.timeSlots - 1);
+        const endDepot = TSN_CONFIG.depots[Math.floor(Math.random() * TSN_CONFIG.depots.length)];
+        const endNode = createNode(endDepot, endTimeSlot, nodes.length);
+        nodes.push(endNode);
+        
+        buildProgress = (i / TSN_CONFIG.totalTrips) * 0.3;
+        updateProgress();
+        
+        await sleep(5); // Slow down for visualization
+      }
+      
+      // Stage 2: Create depot nodes
+      currentStage = 'Creating depot nodes...';
+      updateStatus();
+      
+      for (let d = 0; d < TSN_CONFIG.depots.length && isBuilding; d++) {
+        for (let t = 0; t < TSN_CONFIG.timeSlots && isBuilding; t += 12) { // Every hour
+          if (isPaused) await waitForResume();
+          
+          const node = createNode(TSN_CONFIG.depots[d], t, nodes.length);
+          nodes.push(node);
+          
+          buildProgress = 0.3 + ((d * TSN_CONFIG.timeSlots + t) / (TSN_CONFIG.depots.length * TSN_CONFIG.timeSlots)) * 0.2;
+          updateProgress();
+          
+          await sleep(2);
+        }
+      }
+      
+      // Stage 3: Create trip edges
+      currentStage = 'Generating trip edges...';
+      updateStatus();
+      
+      for (let i = 0; i < TSN_CONFIG.totalTrips && isBuilding; i++) {
+        if (isPaused) await waitForResume();
+        
+        const startNodeIndex = i * 2;
+        const endNodeIndex = i * 2 + 1;
+        
+        if (startNodeIndex < nodes.length && endNodeIndex < nodes.length) {
+          createEdge(nodes[startNodeIndex], nodes[endNodeIndex], 'trip');
+          edges.push({ from: startNodeIndex, to: endNodeIndex, type: 'trip' });
+        }
+        
+        buildProgress = 0.5 + (i / TSN_CONFIG.totalTrips) * 0.2;
+        updateProgress();
+        
+        await sleep(3);
+      }
+      
+      // Stage 4: Create wait edges
+      currentStage = 'Generating wait edges...';
+      updateStatus();
+      
+      const waitEdgeCount = Math.min(nodes.length * 0.5, 2500);
+      for (let i = 0; i < waitEdgeCount && isBuilding; i++) {
+        if (isPaused) await waitForResume();
+        
+        const nodeIndex = Math.floor(Math.random() * (nodes.length - 1));
+        const nextNodeIndex = nodeIndex + 1;
+        
+        if (nodes[nodeIndex] && nodes[nextNodeIndex]) {
+          createEdge(nodes[nodeIndex], nodes[nextNodeIndex], 'wait');
+          edges.push({ from: nodeIndex, to: nextNodeIndex, type: 'wait' });
+        }
+        
+        buildProgress = 0.7 + (i / waitEdgeCount) * 0.15;
+        updateProgress();
+        
+        await sleep(2);
+      }
+      
+      // Stage 5: Create deadhead and rest edges
+      currentStage = 'Generating deadhead & rest edges...';
+      updateStatus();
+      
+      const miscEdgeCount = Math.min(nodes.length * 0.3, 1500);
+      for (let i = 0; i < miscEdgeCount && isBuilding; i++) {
+        if (isPaused) await waitForResume();
+        
+        const node1Index = Math.floor(Math.random() * nodes.length);
+        const node2Index = Math.floor(Math.random() * nodes.length);
+        
+        if (node1Index !== node2Index && nodes[node1Index] && nodes[node2Index]) {
+          const type = Math.random() > 0.5 ? 'deadhead' : 'rest';
+          createEdge(nodes[node1Index], nodes[node2Index], type);
+          edges.push({ from: node1Index, to: node2Index, type });
+        }
+        
+        buildProgress = 0.85 + (i / miscEdgeCount) * 0.15;
+        updateProgress();
+        
+        await sleep(2);
+      }
+      
+      // Complete
+      buildProgress = 1.0;
+      currentStage = 'Complete!';
+      updateProgress();
+      updateStatus();
+      
+      isBuilding = false;
+      document.getElementById('pause-btn').style.display = 'none';
+      document.getElementById('start-btn').style.display = 'block';
+      document.getElementById('start-btn').textContent = 'REBUILD';
+      document.getElementById('status-display').innerHTML = '✓ TSN Construction Complete';
+    }
+    
+    // Update progress display
+    function updateProgress() {
+      const percent = Math.floor(buildProgress * 100);
+      document.getElementById('node-count').textContent = nodes.length;
+      document.getElementById('edge-count').textContent = edges.length;
+      document.getElementById('completion').textContent = percent + '%';
+      document.getElementById('progress-fill').style.width = percent + '%';
+      document.getElementById('progress-text').textContent = percent + '%';
+    }
+    
+    function updateStatus() {
+      document.getElementById('current-stage').textContent = currentStage;
+    }
+    
+    function sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
+    
+    function waitForResume() {
+      return new Promise(resolve => {
+        const interval = setInterval(() => {
+          if (!isPaused) {
+            clearInterval(interval);
+            resolve();
+          }
+        }, 100);
+      });
+    }
+    
+    // Reset graph
+    function resetGraph() {
+      // Remove all nodes and edges
+      nodeObjects.forEach(obj => scene.remove(obj));
+      edgeObjects.forEach(obj => scene.remove(obj));
+      
+      nodes.length = 0;
+      edges.length = 0;
+      nodeObjects.length = 0;
+      edgeObjects.length = 0;
+      
+      buildProgress = 0;
+      currentStage = 'idle';
+      updateProgress();
+      updateStatus();
+      
+      document.getElementById('start-btn').textContent = 'START BUILD';
+      document.getElementById('status-display').innerHTML = '<span style="display: inline-block;">⚙</span> Ready to build Time-Space Network...';
+    }
+    
+    // Controls
+    document.getElementById('start-btn').addEventListener('click', buildTSN);
+    
+    document.getElementById('pause-btn').addEventListener('click', () => {
+      isPaused = !isPaused;
+      document.getElementById('pause-btn').textContent = isPaused ? 'RESUME' : 'PAUSE';
+    });
+    
+    document.getElementById('reset-btn').addEventListener('click', () => {
+      isBuilding = false;
+      isPaused = false;
+      setTimeout(resetGraph, 100);
+    });
+    
+    // Camera rotation
+    let cameraAngle = 0;
+    const cameraRadius = 80;
+    const cameraHeight = 30;
+    
+    // Animation loop
+    function animate() {
+      requestAnimationFrame(animate);
+      
+      // Rotate camera around the graph
+      cameraAngle += 0.002;
+      camera.position.x = Math.cos(cameraAngle) * cameraRadius;
+      camera.position.z = Math.sin(cameraAngle) * cameraRadius;
+      camera.position.y = cameraHeight;
+      camera.lookAt(0, 0, 0);
+      
+      // Animate node glow
+      nodeObjects.forEach((node, i) => {
+        if (node.children[0]) {
+          node.children[0].material.opacity = 0.2 + Math.sin(Date.now() * 0.001 + i * 0.1) * 0.1;
+        }
+      });
+      
+      renderer.render(scene, camera);
+    }
+    
+    // Handle window resize
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+    
+    // Start animation
+    animate();
+    
+    // Auto-start after 2 seconds
+    setTimeout(() => {
+      buildTSN();
+    }, 2000);
+  </script>
+</body>
+</html>

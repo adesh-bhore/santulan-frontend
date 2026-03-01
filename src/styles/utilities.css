@@ -1,0 +1,383 @@
+/**
+ * TransitPulse Utility Classes
+ * Reusable utility classes for common patterns
+ */
+
+/* ========================================
+   DISPLAY
+   ======================================== */
+.flex {
+  display: flex;
+}
+
+.inline-flex {
+  display: inline-flex;
+}
+
+.grid {
+  display: grid;
+}
+
+.hidden {
+  display: none;
+}
+
+/* ========================================
+   FLEX UTILITIES
+   ======================================== */
+.flex-row {
+  flex-direction: row;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.items-start {
+  align-items: flex-start;
+}
+
+.items-end {
+  align-items: flex-end;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.justify-around {
+  justify-content: space-around;
+}
+
+.justify-start {
+  justify-content: flex-start;
+}
+
+.justify-end {
+  justify-content: flex-end;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+.gap-1 {
+  gap: var(--space-1);
+}
+.gap-2 {
+  gap: var(--space-2);
+}
+.gap-3 {
+  gap: var(--space-3);
+}
+.gap-4 {
+  gap: var(--space-4);
+}
+.gap-6 {
+  gap: var(--space-6);
+}
+.gap-8 {
+  gap: var(--space-8);
+}
+
+/* ========================================
+   SPACING
+   ======================================== */
+.m-0 {
+  margin: 0;
+}
+.m-auto {
+  margin: auto;
+}
+.mt-2 {
+  margin-top: var(--space-2);
+}
+.mt-4 {
+  margin-top: var(--space-4);
+}
+.mt-6 {
+  margin-top: var(--space-6);
+}
+.mb-2 {
+  margin-bottom: var(--space-2);
+}
+.mb-4 {
+  margin-bottom: var(--space-4);
+}
+.mb-6 {
+  margin-bottom: var(--space-6);
+}
+
+.p-2 {
+  padding: var(--space-2);
+}
+.p-4 {
+  padding: var(--space-4);
+}
+.p-6 {
+  padding: var(--space-6);
+}
+.p-8 {
+  padding: var(--space-8);
+}
+
+/* ========================================
+   TEXT ALIGNMENT
+   ======================================== */
+.text-left {
+  text-align: left;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+/* ========================================
+   TEXT TRANSFORM
+   ======================================== */
+.uppercase {
+  text-transform: uppercase;
+}
+
+.lowercase {
+  text-transform: lowercase;
+}
+
+.capitalize {
+  text-transform: capitalize;
+}
+
+/* ========================================
+   FONT WEIGHTS
+   ======================================== */
+.font-normal {
+  font-weight: 400;
+}
+
+.font-medium {
+  font-weight: 500;
+}
+
+.font-semibold {
+  font-weight: 600;
+}
+
+.font-bold {
+  font-weight: 700;
+}
+
+/* ========================================
+   COLORS
+   ======================================== */
+.text-brass {
+  color: var(--brass-accent);
+}
+
+.text-railway-blue {
+  color: var(--railway-blue);
+}
+
+.text-sepia {
+  color: var(--sepia-tone);
+}
+
+.text-government-seal {
+  color: var(--government-seal);
+}
+
+.bg-aged-cream {
+  background-color: var(--aged-cream);
+}
+
+.bg-parchment {
+  background-color: var(--parchment-white);
+}
+
+.bg-mahogany {
+  background-color: var(--mahogany-dark);
+}
+
+/* ========================================
+   BORDERS
+   ======================================== */
+.border-brass {
+  border: 1px solid var(--brass-accent);
+}
+
+.border-brass-2 {
+  border: 2px solid var(--brass-accent);
+}
+
+.rounded-sm {
+  border-radius: var(--radius-sm);
+}
+
+.rounded-md {
+  border-radius: var(--radius-md);
+}
+
+.rounded-lg {
+  border-radius: var(--radius-lg);
+}
+
+.rounded-full {
+  border-radius: var(--radius-full);
+}
+
+/* ========================================
+   SHADOWS
+   ======================================== */
+.shadow-sm {
+  box-shadow: var(--shadow-sm);
+}
+
+.shadow-md {
+  box-shadow: var(--shadow-md);
+}
+
+.shadow-lg {
+  box-shadow: var(--shadow-lg);
+}
+
+.shadow-xl {
+  box-shadow: var(--shadow-xl);
+}
+
+/* ========================================
+   POSITION
+   ======================================== */
+.relative {
+  position: relative;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.fixed {
+  position: fixed;
+}
+
+.sticky {
+  position: sticky;
+}
+
+/* ========================================
+   WIDTH & HEIGHT
+   ======================================== */
+.w-full {
+  width: 100%;
+}
+
+.h-full {
+  height: 100%;
+}
+
+.w-screen {
+  width: 100vw;
+}
+
+.h-screen {
+  height: 100vh;
+}
+
+/* ========================================
+   OVERFLOW
+   ======================================== */
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.overflow-auto {
+  overflow: auto;
+}
+
+.overflow-scroll {
+  overflow: scroll;
+}
+
+/* ========================================
+   CURSOR
+   ======================================== */
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.cursor-not-allowed {
+  cursor: not-allowed;
+}
+
+/* ========================================
+   OPACITY
+   ======================================== */
+.opacity-0 {
+  opacity: 0;
+}
+
+.opacity-50 {
+  opacity: 0.5;
+}
+
+.opacity-75 {
+  opacity: 0.75;
+}
+
+.opacity-100 {
+  opacity: 1;
+}
+
+/* ========================================
+   TRANSITIONS
+   ======================================== */
+.transition {
+  transition: all 200ms ease;
+}
+
+.transition-colors {
+  transition: color 200ms ease, background-color 200ms ease, border-color 200ms ease;
+}
+
+.transition-transform {
+  transition: transform 200ms ease;
+}
+
+.transition-opacity {
+  transition: opacity 200ms ease;
+}
+
+/* ========================================
+   VINTAGE EFFECTS
+   ======================================== */
+.brass-gradient {
+  background: linear-gradient(135deg, var(--brass-light) 0%, var(--brass-accent) 50%, var(--brass-dark) 100%);
+}
+
+.mahogany-panel {
+  background-color: var(--aged-cream);
+  border: 2px solid var(--brass-accent);
+  box-shadow: var(--shadow-md);
+}
+
+.embossed {
+  text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5), -1px -1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.glow-brass {
+  text-shadow: 0 0 10px rgba(184, 134, 11, 0.5), 0 0 20px rgba(184, 134, 11, 0.3);
+}

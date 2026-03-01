@@ -1,0 +1,122 @@
+/**
+ * TransitPulse Design Tokens
+ * Vintage-themed design system inspired by 1940s-1960s government control systems
+ */
+
+:root {
+  /* ========================================
+     PRIMARY COLORS
+     ======================================== */
+  --brass-accent: #b8860b;
+  --brass-dark: #8b6914;
+  --brass-light: #d4af37;
+  --mahogany-dark: #704214;
+  --mahogany-darker: #5a3410;
+
+  /* ========================================
+     BACKGROUND COLORS
+     ======================================== */
+  --aged-cream: #faf3e0;
+  --parchment-white: #f4f1de;
+  --sepia-tone: #8b7355;
+
+  /* ========================================
+     FUNCTIONAL COLORS
+     ======================================== */
+  --railway-blue: #1b4965;
+  --railway-blue-light: #2a5975;
+  --government-seal: #2c1810;
+  --ink-black: #1a1a1a;
+  --steel-brushed: #6b7280;
+
+  /* ========================================
+     SIGNAL COLORS
+     ======================================== */
+  --signal-green: #2d6a4f;
+  --signal-amber: #ca6702;
+  --signal-red: #9b2226;
+
+  /* ========================================
+     SHADOWS & EFFECTS
+     ======================================== */
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.2);
+  --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.3);
+  --shadow-xl: 0 12px 32px rgba(0, 0, 0, 0.4);
+
+  /* ========================================
+     TRANSITIONS
+     ======================================== */
+  --timing-precision: cubic-bezier(0.645, 0.045, 0.355, 1);
+  --timing-mechanical: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* ========================================
+     FONT FAMILIES
+     ======================================== */
+  --font-display: 'Playfair Display', serif;
+  --font-heading: 'Merriweather', serif;
+  --font-body: 'Source Sans Pro', sans-serif;
+  --font-numbers: 'Roboto Mono', monospace;
+  --font-labels: 'Oswald', sans-serif;
+
+  /* ========================================
+     FONT SIZES
+     ======================================== */
+  --text-xs: 10px;
+  --text-sm: 12px;
+  --text-base: 14px;
+  --text-lg: 16px;
+  --text-xl: 20px;
+  --text-2xl: 24px;
+  --text-3xl: 32px;
+  --text-4xl: 48px;
+
+  /* ========================================
+     LINE HEIGHTS
+     ======================================== */
+  --leading-tight: 1.2;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.7;
+
+  /* ========================================
+     LETTER SPACING
+     ======================================== */
+  --tracking-tight: -0.02em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.05em;
+  --tracking-wider: 0.1em;
+
+  /* ========================================
+     SPACING SCALE
+     ======================================== */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+
+  /* ========================================
+     BORDER RADIUS
+     ======================================== */
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 8px;
+  --radius-full: 9999px;
+
+  /* ========================================
+     Z-INDEX SCALE
+     ======================================== */
+  --z-base: 1;
+  --z-dropdown: 1000;
+  --z-sticky: 1100;
+  --z-fixed: 1200;
+  --z-modal-backdrop: 1300;
+  --z-modal: 1400;
+  --z-popover: 1500;
+  --z-tooltip: 1600;
+}

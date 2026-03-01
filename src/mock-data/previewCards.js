@@ -1,0 +1,92 @@
+export const previewCardsData = [
+  {
+    id: 'home',
+    page: 'home',
+    title: 'Command Center',
+    subtitle: 'Dashboard',
+    icon: '⌘',
+    status: {
+      label: 'OPERATIONAL',
+      value: 'Active Plan v4',
+      color: 'green',
+    },
+    quickInfo: [
+      '118/127 Vehicles Active',
+      '106/145 Drivers on Duty',
+      '450/450 Trips Covered',
+      '94.2% On-Time Performance',
+    ],
+  },
+  {
+    id: 'data',
+    page: 'data',
+    title: 'Data Registry',
+    subtitle: 'Management',
+    icon: '📊',
+    status: {
+      label: 'READY',
+      value: '5 Files Loaded',
+      color: 'green',
+    },
+    quickInfo: [
+      '125 Routes Configured',
+      '127 Vehicles Registered',
+      '145 Drivers in System',
+      'Last Updated: 30 Jan 2026',
+    ],
+  },
+  {
+    id: 'optimize',
+    page: 'optimize',
+    title: 'Optimization Engine',
+    subtitle: 'Control',
+    icon: '⚙',
+    status: {
+      label: 'IDLE',
+      value: 'Ready to Run',
+      color: 'amber',
+    },
+    quickInfo: [
+      'Last Run: 84 seconds',
+      'Mode: Balanced',
+      'Saved: 3 Vehicles',
+      'Cost Reduction: ₹2,400',
+    ],
+  },
+  {
+    id: 'reports',
+    page: 'reports',
+    title: 'Official Reports',
+    subtitle: 'Documents',
+    icon: '📄',
+    status: {
+      label: 'AVAILABLE',
+      value: '12 Reports',
+      color: 'green',
+    },
+    quickInfo: [
+      'Daily Operations Report',
+      'Monthly Fleet Summary',
+      'Driver Duty Records',
+      'Route Performance Analysis',
+    ],
+  },
+  {
+    id: 'settings',
+    page: 'settings',
+    title: 'System Configuration',
+    subtitle: 'Settings',
+    icon: '⚙️',
+    status: {
+      label: 'CONFIGURED',
+      value: 'All Systems Normal',
+      color: 'green',
+    },
+    quickInfo: [
+      'User Preferences',
+      'System Parameters',
+      'Depot Configuration',
+      'Notification Settings',
+    ],
+  },
+];

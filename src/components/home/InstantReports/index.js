@@ -1,0 +1,1 @@
+export { InstantReports } from './InstantReports';

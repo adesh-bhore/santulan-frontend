@@ -1,0 +1,135 @@
+.rotaryHub {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background-color: hsl(47, 38%, 95%);
+  background-image: url('../assets/parchment.png');
+  background-size: 812px;
+  background-repeat: repeat;
+  overflow: hidden;
+  padding: var(--space-8);
+}
+
+/* Vignette overlay */
+.rotaryHub::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at center,
+    transparent 0%,
+    hsl(47, 30%, 90%) 100%
+  );
+  opacity: 0.8;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Command Clock Container */
+.commandClockContainer {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  margin-top: 90px;
+  transform: translateX(-50%);
+  z-index: var(--z-sticky);
+}
+
+/* Gauges Container */
+.gaugesContainer {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Pavilion Container */
+.pavilionContainer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  max-width: 1400px;
+  z-index: var(--z-base);
+}
+
+/* Background Pattern */
+.backgroundPattern {
+  position: fixed;
+  inset: 0;
+  background-image: 
+    /* Very subtle noise for paper grain */
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.02'/%3E%3C/svg%3E");
+  opacity: 1;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.backgroundPattern::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  /* Edge darkening - vignette effect */
+  background: 
+    radial-gradient(
+      ellipse at 50% 50%,
+      transparent 0%,
+      transparent 40%,
+      rgba(139, 115, 85, 0.03) 70%,
+      rgba(120, 100, 70, 0.08) 100%
+    );
+}
+
+/* Decorative Concentric Ring */
+.concentricRing {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 800px;
+  height: 800px;
+  border: 1px solid rgba(112, 66, 20, 0.1);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Animations */
+@keyframes hubEnter {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.rotaryHub {
+  animation: hubEnter 600ms var(--timing-mechanical);
+}
+
+/* Responsive */
+@media (max-width: 1600px) {
+  .rotaryHub {
+    padding: var(--space-6);
+  }
+
+  .commandClockContainer {
+    top: 15px;
+  }
+}
+
+@media (max-width: 1366px) {
+  .rotaryHub {
+    padding: var(--space-4);
+  }
+
+  .commandClockContainer {
+    top: 10px;
+  }
+}

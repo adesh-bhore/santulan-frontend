@@ -1,0 +1,1 @@
+export { InformationPavilion } from './InformationPavilion';

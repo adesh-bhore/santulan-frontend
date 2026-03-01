@@ -1,0 +1,139 @@
+.input-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  width: 100%;
+}
+
+.input-wrapper--inline {
+  flex-direction: row;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.input-label {
+  font-family: var(--font-labels);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  color: var(--government-seal);
+}
+
+.input-label--inline {
+  cursor: pointer;
+  user-select: none;
+}
+
+/* Text and Number Inputs */
+.input {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  padding: var(--space-3) var(--space-4);
+  background-color: var(--parchment-white);
+  border: 2px solid var(--brass-dark);
+  border-radius: var(--radius-sm);
+  color: var(--ink-black);
+  transition: all 200ms ease;
+  width: 100%;
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--brass-accent);
+  box-shadow: 0 0 0 3px rgba(184, 134, 11, 0.1);
+}
+
+.input:disabled {
+  background-color: var(--aged-cream);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.input--error {
+  border-color: var(--signal-red);
+}
+
+.input--error:focus {
+  box-shadow: 0 0 0 3px rgba(155, 34, 38, 0.1);
+}
+
+.input-error-message {
+  font-size: var(--text-sm);
+  color: var(--signal-red);
+  font-weight: 500;
+}
+
+/* Checkbox Styling */
+.input-checkbox {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  accent-color: var(--brass-accent);
+}
+
+.input-checkbox:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* Radio Button Styling */
+.input-radio {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  accent-color: var(--brass-accent);
+}
+
+.input-radio:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* File Input Styling */
+.input-file {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  padding: var(--space-3);
+  background-color: var(--parchment-white);
+  border: 2px dashed var(--brass-dark);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 200ms ease;
+  width: 100%;
+}
+
+.input-file:hover {
+  border-color: var(--brass-accent);
+  background-color: var(--aged-cream);
+}
+
+.input-file:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.input-file::file-selector-button {
+  font-family: var(--font-labels);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  padding: var(--space-2) var(--space-4);
+  background: linear-gradient(
+    135deg,
+    var(--brass-light) 0%,
+    var(--brass-accent) 50%,
+    var(--brass-dark) 100%
+  );
+  color: var(--ink-black);
+  border: 1px solid var(--brass-dark);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  margin-right: var(--space-3);
+  transition: all 200ms ease;
+}
+
+.input-file::file-selector-button:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}

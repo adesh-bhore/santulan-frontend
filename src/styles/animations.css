@@ -1,0 +1,403 @@
+/**
+ * TransitPulse Animations
+ * Keyframe animations for vintage mechanical effects
+ */
+
+/* ========================================
+   PAGE TRANSITIONS
+   ======================================== */
+
+/* Hub Exit Animation */
+@keyframes hubExit {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+}
+
+.hub-exit {
+  animation: hubExit 300ms ease-out forwards;
+}
+
+/* Hub Enter Animation */
+@keyframes hubEnter {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.hub-enter {
+  animation: hubEnter 400ms var(--timing-mechanical) forwards;
+}
+
+/* Page Exit Animation */
+@keyframes pageExit {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+}
+
+.page-exit {
+  animation: pageExit 300ms ease-out forwards;
+}
+
+/* Page Enter Animation */
+@keyframes pageEnter {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.page-enter {
+  animation: pageEnter 400ms var(--timing-mechanical) forwards;
+}
+
+/* ========================================
+   GAUGE ANIMATIONS
+   ======================================== */
+
+/* Ghost Needle Fade */
+@keyframes ghostFade {
+  from {
+    opacity: 0.5;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.ghost-fade {
+  animation: ghostFade 2s ease-out forwards;
+}
+
+/* Needle Swing */
+@keyframes needleSwing {
+  0% {
+    transform: rotate(135deg);
+  }
+  100% {
+    transform: rotate(var(--needle-angle, 270deg));
+  }
+}
+
+/* ========================================
+   PROGRESS BAR ANIMATIONS
+   ======================================== */
+
+/* Shimmer Effect */
+@keyframes shimmer {
+  from {
+    background-position: -200% 0;
+  }
+  to {
+    background-position: 200% 0;
+  }
+}
+
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--brass-accent) 0%,
+    var(--brass-light) 50%,
+    var(--brass-accent) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s linear infinite;
+}
+
+/* ========================================
+   PULSE ANIMATIONS
+   ======================================== */
+
+/* Status Badge Pulse */
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+}
+
+.pulse {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* Glow Pulse */
+@keyframes glowPulse {
+  0%,
+  100% {
+    box-shadow: 0 0 10px rgba(184, 134, 11, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(184, 134, 11, 0.6);
+  }
+}
+
+.glow-pulse {
+  animation: glowPulse 2s ease-in-out infinite;
+}
+
+/* ========================================
+   ROTATION ANIMATIONS
+   ======================================== */
+
+/* Spin */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spin {
+  animation: spin 1s linear infinite;
+}
+
+/* Slow Spin */
+.spin-slow {
+  animation: spin 3s linear infinite;
+}
+
+/* ========================================
+   FADE ANIMATIONS
+   ======================================== */
+
+/* Fade In */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  animation: fadeIn 300ms ease-in;
+}
+
+/* Fade Out */
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.fade-out {
+  animation: fadeOut 300ms ease-out;
+}
+
+/* ========================================
+   SLIDE ANIMATIONS
+   ======================================== */
+
+/* Slide In from Top */
+@keyframes slideInTop {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.slide-in-top {
+  animation: slideInTop 400ms var(--timing-mechanical);
+}
+
+/* Slide In from Bottom */
+@keyframes slideInBottom {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.slide-in-bottom {
+  animation: slideInBottom 400ms var(--timing-mechanical);
+}
+
+/* Slide In from Left */
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.slide-in-left {
+  animation: slideInLeft 400ms var(--timing-mechanical);
+}
+
+/* Slide In from Right */
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.slide-in-right {
+  animation: slideInRight 400ms var(--timing-mechanical);
+}
+
+/* ========================================
+   SCALE ANIMATIONS
+   ======================================== */
+
+/* Scale Up */
+@keyframes scaleUp {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.scale-up {
+  animation: scaleUp 300ms var(--timing-mechanical);
+}
+
+/* Scale Down */
+@keyframes scaleDown {
+  from {
+    transform: scale(1.1);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.scale-down {
+  animation: scaleDown 300ms var(--timing-mechanical);
+}
+
+/* ========================================
+   BOUNCE ANIMATION
+   ======================================== */
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.bounce {
+  animation: bounce 1s ease-in-out infinite;
+}
+
+/* ========================================
+   COUNT UP ANIMATION
+   ======================================== */
+
+@keyframes countUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.count-up {
+  animation: countUp 600ms ease-out;
+}
+
+/* ========================================
+   MECHANICAL CLICK ANIMATION
+   ======================================== */
+
+@keyframes mechanicalClick {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.mechanical-click {
+  animation: mechanicalClick 150ms var(--timing-precision);
+}
+
+/* ========================================
+   HOVER LIFT EFFECT
+   ======================================== */
+
+.hover-lift {
+  transition: transform 300ms var(--timing-mechanical), box-shadow 300ms ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* ========================================
+   BRASS GLOW EFFECT
+   ======================================== */
+
+.brass-glow-hover {
+  transition: box-shadow 300ms ease, transform 200ms ease;
+}
+
+.brass-glow-hover:hover {
+  box-shadow: 0 0 20px rgba(184, 134, 11, 0.4), 0 0 40px rgba(184, 134, 11, 0.2);
+  transform: scale(1.02);
+}
