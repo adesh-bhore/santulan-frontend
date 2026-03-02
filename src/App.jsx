@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AppProvider } from '@context/AppContext';
-import { RotaryHub } from './layouts/RotaryHub';
+import { CommandHub } from './layouts/CommandHub';
 import { HomePage } from './pages/HomePage';
 import { DataUploadPage } from './pages/DataUploadPage';
 import { OptimizationPage } from './pages/OptimizationPage';
@@ -12,7 +12,7 @@ function App() {
     <BrowserRouter>
       <AppProvider>
         <Routes>
-          <Route path="/" element={<RotaryHub />} />
+          <Route path="/" element={<CommandHub />} />
           <Route path="/home" element={<HomePage />} />
           <Route path="/data" element={<DataUploadPage />} />
           <Route path="/optimize" element={<OptimizationPage />} />
