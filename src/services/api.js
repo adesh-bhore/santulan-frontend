@@ -353,14 +353,44 @@ export const api = {
     if (USE_MOCK) return mockApi.runOptimization(request);
     
     try {
-      // The backend endpoint is POST /api/optimization/optimize
-      // Since API_BASE_URL is http://localhost:8000/api, we call /optimization/optimize
-      const result = await client.post('/optimization/optimize', request);
+      // IMPORTANT: Call backend directly (not through Vercel proxy)
+      // Vercel proxy has 10-second timeout, but optimization takes ~5 minutes
+      // CORS is now properly configured on backend, so direct call works
+      const DIRECT_BACKEND_URL = 'https://santulan.duckdns.org/api';
+      const url = `${DIRECT_BACKEND_URL}/optimization/optimize`;
+      
+      console.log('🚀 Starting optimization (direct backend call)...');
+      console.log('URL:', url);
+      console.log('Request:', request);
+      
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 620000); // 10min 20s timeout
+      
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(request),
+        signal: controller.signal
+      });
+
+      clearTimeout(timeoutId);
+
+      if (!response.ok) {
+        const error = await response.json().catch(() => ({}));
+        throw new Error(error.error || `HTTP ${response.status}: ${response.statusText}`);
+      }
+
+      const result = await response.json();
+      console.log('✅ Optimization completed:', result);
       return result;
     } catch (error) {
-      console.error('Optimization API Error:', error);
+      if (error.name === 'AbortError') {
+        throw new Error('Request timeout - optimization is taking longer than expected. Please try again or contact support.');
+      }
+      console.error('❌ Optimization API Error:', error);
       console.error('Request was:', request);
-      console.error('Full URL would be:', `${API_BASE_URL}/optimization/optimize`);
       throw error;
     }
   },
