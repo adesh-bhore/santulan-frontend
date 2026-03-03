@@ -20,7 +20,12 @@ export default async function handler(req, res) {
   const apiPath = Array.isArray(path) ? path.join('/') : path || '';
   
   // Backend URL - using HTTPS
+  // Note: apiPath already includes everything after /api/
   const backendUrl = `https://santulan.duckdns.org/api/${apiPath}`;
+  
+  console.log(`[Proxy] Incoming path:`, path);
+  console.log(`[Proxy] Constructed apiPath:`, apiPath);
+  console.log(`[Proxy] Full backend URL:`, backendUrl);
   
   console.log(`[Proxy] ${req.method} ${apiPath}`);
   
@@ -55,10 +60,17 @@ export default async function handler(req, res) {
     
   } catch (error) {
     console.error('[Proxy] Error:', error);
+    console.error('[Proxy] Request details:', {
+      method: req.method,
+      path: req.query.path,
+      apiPath,
+      backendUrl
+    });
     return res.status(500).json({ 
       error: 'Proxy request failed', 
       details: error.message,
-      path: apiPath
+      path: apiPath,
+      backendUrl
     });
   }
 }
